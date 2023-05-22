@@ -13,16 +13,17 @@ import 'package:provider/provider.dart';
 import 'package:healthme_mobileapp/color/mycolor.dart';
 
 void main(List<String> args) {
+  Provider.debugCheckInvalidValueType = null;
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) => ProviData(),
+    return ChangeNotifierProvider(
+      create: (context) => ProviData(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: FirstFormPage(),

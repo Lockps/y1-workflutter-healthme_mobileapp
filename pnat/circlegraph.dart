@@ -25,7 +25,7 @@ class _CircleGraphState extends State<CircleGraph> {
       builder: (context, prodata, child) => Scaffold(
         appBar: AppBar(
           backgroundColor: mySelectedcolor.teal,
-          title: Text("สวัสดี ${prodata.name}"),
+          title: Text("สวัสดี ${prodata.getName}"),
         ),
         body: Column(
           children: [
@@ -33,34 +33,45 @@ class _CircleGraphState extends State<CircleGraph> {
               palette: [mySelectedcolor.pink],
               series: <CircularSeries>[
                 RadialBarSeries<GraphData, String>(
-                    dataSource: getData(prodata.sick, prodata.gender,
-                        prodata.sugar, prodata.kcal, prodata.sodium),
-                    xValueMapper: (GraphData data, _) => data.dataname,
-                    yValueMapper: (GraphData data, _) => data.data,
-                    dataLabelSettings: DataLabelSettings(isVisible: true),
-                    enableTooltip: true,
-                    maximumValue: getSick(prodata.sick, prodata.gender)),
+                  dataSource: getData(
+                    prodata.getSick,
+                    prodata.getGender,
+                    prodata.getSugar,
+                    prodata.getKcal,
+                    prodata.getSodium,
+                  ),
+                  xValueMapper: (GraphData data, _) => data.dataname,
+                  yValueMapper: (GraphData data, _) => data.data,
+                  dataLabelSettings: DataLabelSettings(isVisible: true),
+                  enableTooltip: true,
+                  maximumValue: getSick(prodata.getSick, prodata.getGender),
+                ),
               ],
             ),
             Container(
               decoration: BoxDecoration(color: Colors.transparent),
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.1,
-              child: Column(children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
-                ),
-                Text(
-                    "${datanums(prodata.sick, prodata.kcal, prodata.sodium, prodata.sugar)}"),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
-                Text(
-                  " ${getamount(prodata.sick, prodata.kcal, prodata.sodium, prodata.sugar, prodata.gender)}",
-                  style: TextStyle(
-                      color: mySelectedcolor.pink, fontWeight: FontWeight.bold),
-                )
-              ]),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  Text(
+                    "${datanums(prodata.getSick, prodata.getKcal, prodata.getSodium, prodata.getSugar)}",
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Text(
+                    " ${getamount(prodata.getSick, prodata.getKcal, prodata.getSodium, prodata.getSugar, prodata.getGender)}",
+                    style: TextStyle(
+                      color: mySelectedcolor.pink,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               decoration: BoxDecoration(color: Colors.teal),
@@ -70,7 +81,7 @@ class _CircleGraphState extends State<CircleGraph> {
               decoration: BoxDecoration(color: Colors.red),
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.1,
-            )
+            ),
           ],
         ),
       ),
