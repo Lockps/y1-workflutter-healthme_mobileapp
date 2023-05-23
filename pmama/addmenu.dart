@@ -54,7 +54,7 @@ class _SelectedFoodState extends State<SelectedFood>
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [Item(), FoodDIY()],
+          children: [Item(), FoodDIY()],
         ),
       ),
     );
@@ -200,14 +200,10 @@ class _FoodDIYState extends State<FoodDIY> {
   List<String?> selectedMeats = [];
   List<String?> meatOptions = [];
   Test a = Test();
-  int indexs = 0;
-
-  final _textdata = TextEditingController();
+  int whereindex = 0;
   int count = 0;
 
-  MySelectedcolor mySelectedcolor = MySelectedcolor();
-
-  int whereindex = 0;
+  final List<TextEditingController> _textControllers = []; 
 
   @override
   void initState() {
@@ -215,6 +211,16 @@ class _FoodDIYState extends State<FoodDIY> {
     meatOptions = a.getMenuName()?.map((item) => item.value).toList() ?? [];
 
     selectedMeats = List.generate(count, (index) => meatOptions.first);
+    _textControllers
+        .addAll(List.generate(count, (index) => TextEditingController()));
+  }
+
+  @override
+  void dispose() {
+    for (final controller in _textControllers) {
+      controller.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -257,12 +263,10 @@ class _FoodDIYState extends State<FoodDIY> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.2,
                         child: TextFormField(
-                          controller: _textdata,
+                          controller: _textControllers[index],
                           onChanged: (newValue) {
-                            // Retrieve the entered value as a double
                             double enteredValue =
                                 double.tryParse(newValue) ?? 0.0;
-                            // Update the corresponding value in the provider
                             if (enteredValue != 0.0) {
                               providata.selected = enteredValue;
                             }
@@ -280,8 +284,6 @@ class _FoodDIYState extends State<FoodDIY> {
                 SizedBox(
                   child: ElevatedButton(
                     onPressed: () {
-                      print("${providata.sekcal}");
-                      print("${providata.selected}");
                       providata.sugar += providata.sesugar;
                       providata.sodium += providata.sesodium;
                       providata.kcal += providata.sekcal;
@@ -302,6 +304,8 @@ class _FoodDIYState extends State<FoodDIY> {
                       setState(() {
                         count++;
                         selectedMeats.add(meatOptions.first);
+                        _textControllers.add(
+                            TextEditingController()); 
                       });
                     },
                     child: const Icon(Icons.add),

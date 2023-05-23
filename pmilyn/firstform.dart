@@ -21,6 +21,8 @@ class _FirstFormPageState extends State<FirstFormPage> {
   bool fat = false;
   bool sugar = false;
 
+  bool validatesick = false;
+
   int? pic;
 
   String? username = '';
@@ -50,15 +52,24 @@ class _FirstFormPageState extends State<FirstFormPage> {
                       IconButton(
                         icon: Icon(Icons.arrow_forward),
                         onPressed: () {
-                          if (_man) prodata.gender = 0;
-                          if (_woman) prodata.gender = 1;
-                          prodata.sick = pic;
-                          // prodata.weight = double.parse(_weightcontrol.text);
-                          prodata.name = _namecontrol.text;
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return AppMain();
-                          }));
+                          if (_namecontrol.text.isNotEmpty &&
+                              _heightcontrol.text.isNotEmpty &&
+                              _weightcontrol.text.isNotEmpty &&
+                              (_man || _woman)) {
+                            if (_man) prodata.gender = 0;
+                            if (_woman) prodata.gender = 1;
+
+                            prodata.sick = pic;
+                            // prodata.weight = double.parse(_weightcontrol.text);
+                            prodata.name = _namecontrol.text;
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return AppMain();
+                            }));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text("กรุณาใส่ข้อมูลให้ครบถ้วน")));
+                          }
                         },
                       ),
                     ],
@@ -92,6 +103,12 @@ class _FirstFormPageState extends State<FirstFormPage> {
                             onSaved: (newValue) {
                               username = newValue;
                             },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please Enter Name';
+                              }
+                              return null;
+                            },
                           )),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
@@ -103,6 +120,7 @@ class _FirstFormPageState extends State<FirstFormPage> {
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.28,
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(labelText: " อายุ"),
                           )),
                     ],
@@ -126,6 +144,7 @@ class _FirstFormPageState extends State<FirstFormPage> {
                           width: MediaQuery.of(context).size.width * 0.28,
                           child: TextFormField(
                             controller: _heightcontrol,
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: " ส่วนสูง (เซนติเมตร)"),
                           )),
@@ -140,6 +159,7 @@ class _FirstFormPageState extends State<FirstFormPage> {
                           width: MediaQuery.of(context).size.width * 0.28,
                           child: TextFormField(
                             controller: _weightcontrol, //!weight
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: " น้ำหนัก (กิโลกรัม)"),
                           )),

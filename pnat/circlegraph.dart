@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:healthme_mobileapp/color/mycolor.dart';
 import 'package:healthme_mobileapp/provider/dataprovider.dart';
@@ -30,9 +33,26 @@ class _CircleGraphState extends State<CircleGraph> {
         body: Column(
           children: [
             SfCircularChart(
+              annotations: <CircularChartAnnotation>[
+                CircularChartAnnotation(
+                  widget: Container(
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: Text(
+                        "${getDatanums(
+                          prodata.getSick,
+                          prodata.getGender,
+                          prodata.getSugar,
+                          prodata.getKcal,
+                          prodata.getSodium,
+                        )}",
+                      )),
+                )
+              ],
               palette: [mySelectedcolor.pink],
               series: <CircularSeries>[
                 RadialBarSeries<GraphData, String>(
+                  innerRadius: '70%',
+                  cornerStyle: CornerStyle.bothCurve,
                   dataSource: getData(
                     prodata.getSick,
                     prodata.getGender,
@@ -42,7 +62,7 @@ class _CircleGraphState extends State<CircleGraph> {
                   ),
                   xValueMapper: (GraphData data, _) => data.dataname,
                   yValueMapper: (GraphData data, _) => data.data,
-                  dataLabelSettings: DataLabelSettings(isVisible: true),
+                  dataLabelSettings: DataLabelSettings(isVisible: false),
                   enableTooltip: true,
                   maximumValue: getSick(prodata.getSick, prodata.getGender),
                 ),
@@ -54,9 +74,9 @@ class _CircleGraphState extends State<CircleGraph> {
               height: MediaQuery.of(context).size.height * 0.1,
               child: Column(
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
-                  ),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height * 0.01,
+                  // ),
                   Text(
                     "${datanums(prodata.getSick, prodata.getKcal, prodata.getSodium, prodata.getSugar)}",
                   ),
@@ -66,26 +86,67 @@ class _CircleGraphState extends State<CircleGraph> {
                   Text(
                     " ${getamount(prodata.getSick, prodata.getKcal, prodata.getSodium, prodata.getSugar, prodata.getGender)}",
                     style: TextStyle(
-                      color: mySelectedcolor.pink,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: mySelectedcolor.pink,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
                   ),
                 ],
               ),
             ),
             Container(
-              decoration: BoxDecoration(color: Colors.teal),
-              height: MediaQuery.of(context).size.height * 0.1,
-            ),
-            Container(
-              decoration: BoxDecoration(color: Colors.red),
+              decoration: BoxDecoration(
+                  color: Colors.teal, borderRadius: BorderRadius.circular(20)),
+              height: MediaQuery.of(context).size.height * 0.15,
               width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.1,
+              child: CarouselSlider(
+                options: CarouselOptions(height: 400),
+                items: [recommendMenu(prodata.sick)],
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  recommendMenu(int? sick) {
+    switch (sick) {
+      case 1:
+        return SizedBox(
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.015,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+              Container(
+                decoration: BoxDecoration(color: Colors.amber),
+                width: MediaQuery.of(context).size.width * 0.2,
+                height: MediaQuery.of(context).size.height * 0.01,
+              )
+            ],
+          ),
+        );
+      case 2:
+        return SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.015,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [],
+          ),
+        );
+
+      default:
+        return SizedBox(
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.015,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [],
+          ),
+        );
+    }
   }
 
   List<GraphData> getData(
@@ -101,6 +162,17 @@ class _CircleGraphState extends State<CircleGraph> {
         List<GraphData> fatdata = [GraphData("fat", kcal)];
         return fatdata;
     }
+  }
+}
+
+getDatanums(getSick, getGender, getSugar, getKcal, getSodium) {
+  switch (getSick) {
+    case 1:
+      return getSugar;
+    case 2:
+      return getSodium;
+    default:
+      return getKcal;
   }
 }
 
