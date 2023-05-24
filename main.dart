@@ -10,8 +10,6 @@ import 'package:healthme_mobileapp/pnoon/newspage.dart';
 import 'package:healthme_mobileapp/provider/dataprovider.dart';
 import 'package:provider/provider.dart';
 
-import 'package:healthme_mobileapp/color/mycolor.dart';
-
 void main(List<String> args) {
   Provider.debugCheckInvalidValueType = null;
   runApp(MyApp());
