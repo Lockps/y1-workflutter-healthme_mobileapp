@@ -16,7 +16,6 @@ class MainChart extends StatefulWidget {
 
 class _MainChartState extends State<MainChart> {
   MySelectedcolor mySelectedcolor = MySelectedcolor();
-  List day = ['วัน', 'สัปดาห์', 'เดือน', 'ปี'];
   int index_color = 0;
 
   final List<ChartData> chartData = [
@@ -28,60 +27,24 @@ class _MainChartState extends State<MainChart> {
   ];
   @override
   Widget build(BuildContext context) {
-    CircleGraph datafromcircle = CircleGraph();
     return Consumer<ProviData>(
       builder: (context, prodata, child) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: mySelectedcolor.teal,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Health me Chart',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+        ),
         body: SafeArea(
             child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Health me Chart',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
                   SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ...List.generate(4, (index) {
-                          //เอาไว้ทำสิ่งที่เราอยากจะทำซ้ำเพิ่ม
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                index_color = index;
-                              });
-                            },
-                            child: Container(
-                              height: 40,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: index_color == index
-                                      ? Color.fromARGB(255, 47, 125, 121)
-                                      : Colors.white),
-                              alignment: Alignment.center,
-                              child: Text(
-                                day[index],
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: index_color == index
-                                        ? Colors.white
-                                        : Colors.black),
-                              ),
-                            ),
-                          );
-                        })
-                      ],
-                    ),
-                  ),
                   SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -108,7 +71,7 @@ class _MainChartState extends State<MainChart> {
                           child: Row(
                             children: [
                               Text(
-                                '... ก้าว',
+                                '${prodata.kcal} แคลอรี',
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               )
@@ -156,7 +119,67 @@ class _MainChartState extends State<MainChart> {
                             yValueMapper: (GraphData ch, _) => ch.data)
                       ],
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(color: Colors.transparent),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Center(
+                      child: Text(
+                          "คุณต้องการโซเดียมเพิ่มขึ้นอีก ${2 - prodata.sodium} กรัม "),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(color: Colors.transparent),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Center(
+                      child: Text(
+                          "คุณต้องการไขมันเพิ่มขึ้นอีก ${65 - prodata.fat} กรัม "),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(color: Colors.transparent),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Center(
+                      child: Text(
+                          "คุณต้องการน้ำตาลเพิ่มขึ้นอีก ${24 - prodata.sugar} กรัม "),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(color: Colors.transparent),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Center(
+                      child: Text(
+                          "คุณต้องการโปรตีนเพิ่มขึ้นอีก ${55 - prodata.protein} กรัม "),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(color: Colors.transparent),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Center(
+                      child: Text(
+                          "คุณต้องการคาร์โบไฮเดรตเพิ่มขึ้นอีก ${600 - prodata.carbo} กรัม "),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -173,7 +196,7 @@ class _MainChartState extends State<MainChart> {
       GraphData("ไขมัน", fat),
       GraphData("น้ำตาล", sugar),
       GraphData("โปรตีน", protein),
-      GraphData("คาร์โบไฮเดรต", carbo),
+      GraphData("คาร์โบ", carbo),
       GraphData("แคลลอรี่", kcal)
     ];
     return dataChartList;
