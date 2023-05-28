@@ -3,6 +3,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:healthme_mobileapp/color/mycolor.dart';
+import 'package:healthme_mobileapp/home.dart';
 import 'package:healthme_mobileapp/pmama/addmenu.dart';
 import 'package:healthme_mobileapp/pmilyn/firstform.dart';
 import 'package:healthme_mobileapp/pnat/circlegraph.dart';
@@ -71,14 +72,7 @@ Widget getPage({required int index}) {
       pagewid = CircleGraph();
       break;
     case 1:
-      pagewid = Scaffold(
-        body: Center(
-          child: Text(
-            "Bowwie",
-            style: TextStyle(fontSize: 50),
-          ),
-        ),
-      );
+      pagewid = MainChart();
       break;
     case 2:
       pagewid = SelectedFood();

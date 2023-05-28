@@ -11,11 +11,41 @@ class ProviData extends ChangeNotifier {
   double sugar = 0;
   double kcal = 0;
   double sodium = 0;
+  double fat = 0;
+  double protein = 0;
+  double carbo = 0;
 
   double selected = 0;
   double sesugar = 0;
   double sekcal = 0;
   double sesodium = 0;
+  double sefat = 0;
+  double seprotein = 0;
+  double secarbo = 0;
+
+  get getSeprotein => this.seprotein;
+
+  set setSeprotein(seprotein) => this.seprotein = seprotein;
+
+  get getSefat => this.sefat;
+
+  set setSefat(sefat) => this.sefat = sefat;
+
+  get getSecarbo => this.secarbo;
+
+  set setSecarbo(secarbo) => this.secarbo = secarbo;
+
+  double get getFat => this.fat;
+
+  set setFat(double fat) => this.fat = fat;
+
+  get getProtein => this.protein;
+
+  set setProtein(protein) => this.protein = protein;
+
+  get getCarbo => this.carbo;
+
+  set setCarbo(carbo) => this.carbo = carbo;
 
   get getSelected => this.selected;
   set setSelected(selected) {

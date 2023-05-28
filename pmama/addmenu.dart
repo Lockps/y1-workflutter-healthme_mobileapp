@@ -160,6 +160,9 @@ class _ItemState extends State<Item> {
                                       prodata.sodium +=
                                           (menuItem.sodium * 0.001);
                                       prodata.sugar += menuItem.sugar;
+                                      prodata.fat += menuItem.fat;
+                                      prodata.protein += menuItem.protein;
+                                      prodata.carbo += menuItem.carbo;
                                       Navigator.of(context).pop();
                                     },
                                     child: const Text(
@@ -203,7 +206,7 @@ class _FoodDIYState extends State<FoodDIY> {
   int whereindex = 0;
   int count = 0;
 
-  final List<TextEditingController> _textControllers = []; 
+  final List<TextEditingController> _textControllers = [];
 
   @override
   void initState() {
@@ -245,13 +248,14 @@ class _FoodDIYState extends State<FoodDIY> {
                         value: selectedMeats[index],
                         onChanged: (String? newValue) {
                           whereindex = getIngredientIndex(newValue!);
+                          Datadetails thisdata = samp.ingrediants[whereindex];
                           setState(() {
-                            providata.sekcal +=
-                                samp.ingrediants[whereindex].kcal;
-                            providata.sesodium +=
-                                samp.ingrediants[whereindex].sodium;
-                            providata.sesugar +=
-                                samp.ingrediants[whereindex].sugar;
+                            providata.sekcal += thisdata.kcal;
+                            providata.sesodium += thisdata.sodium;
+                            providata.sesugar += thisdata.sugar;
+                            providata.sefat += thisdata.fat;
+                            providata.seprotein += thisdata.protein;
+                            providata.secarbo += thisdata.carbo;
                             selectedMeats[index] = newValue;
                           });
                         },
@@ -287,6 +291,9 @@ class _FoodDIYState extends State<FoodDIY> {
                       providata.sugar += providata.sesugar;
                       providata.sodium += providata.sesodium;
                       providata.kcal += providata.sekcal;
+                      providata.fat += providata.sefat;
+                      providata.protein += providata.seprotein;
+                      providata.carbo += providata.secarbo;
                       providata.updateData();
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -304,8 +311,7 @@ class _FoodDIYState extends State<FoodDIY> {
                       setState(() {
                         count++;
                         selectedMeats.add(meatOptions.first);
-                        _textControllers.add(
-                            TextEditingController()); 
+                        _textControllers.add(TextEditingController());
                       });
                     },
                     child: const Icon(Icons.add),
