@@ -100,7 +100,11 @@ class _CircleGraphState extends State<CircleGraph> {
               width: MediaQuery.of(context).size.width * 0.8,
               child: CarouselSlider(
                 options: CarouselOptions(height: 400),
-                items: [recommendMenu(prodata.sick)],
+                items: [
+                  recommendMenu(prodata.sick)[0],
+                  recommendMenu(prodata.sick)[1],
+                  recommendMenu(prodata.sick)[2]
+                ],
               ),
             ),
           ],
@@ -112,40 +116,27 @@ class _CircleGraphState extends State<CircleGraph> {
   recommendMenu(int? sick) {
     switch (sick) {
       case 1:
-        return SizedBox(
-          width: MediaQuery.of(context).size.width * 0.8,
-          height: MediaQuery.of(context).size.height * 0.015,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-              Container(
-                decoration: BoxDecoration(color: Colors.amber),
-                width: MediaQuery.of(context).size.width * 0.2,
-                height: MediaQuery.of(context).size.height * 0.01,
-              )
-            ],
-          ),
-        );
+        List<Widget> a = [
+          SizedBox(child: Image.asset('images/1.png')),
+          SizedBox(child: Image.asset('images/2.png')),
+          SizedBox(child: Image.asset('images/3.png'))
+        ];
+        return a;
       case 2:
-        return SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.015,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [],
-          ),
-        );
+        List<Widget> a = [
+          SizedBox(child: Image.asset('images/A.png')),
+          SizedBox(child: Image.asset('images/B.png')),
+          SizedBox(child: Image.asset('images/C.png'))
+        ];
+        return a;
 
       default:
-        return SizedBox(
-          width: MediaQuery.of(context).size.width * 0.8,
-          height: MediaQuery.of(context).size.height * 0.015,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [],
-          ),
-        );
+        List<Widget> a = [
+          SizedBox(child: Image.asset('images/X.png')),
+          SizedBox(child: Image.asset('images/Z.png')),
+          SizedBox(child: Image.asset('images/Z.png'))
+        ];
+        return a;
     }
   }
 

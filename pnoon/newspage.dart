@@ -9,7 +9,16 @@ class NewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MySelectedcolor mySelectedcolor = MySelectedcolor();
     return Scaffold(
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "ข่าวสุขภาพประจำวัน",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          toolbarHeight: MediaQuery.of(context).size.height * 0.1,
+          backgroundColor: mySelectedcolor.teal),
       body: Column(
         children: [
           Expanded(child: News()),
@@ -29,7 +38,9 @@ class News extends StatefulWidget {
 class _NewsState extends State<News> {
   final NewsData data = NewsData();
   TextEditingController searchController = TextEditingController();
-  List<Map<String, dynamic>> filteredMenuItems = [];
+  List<NewsDatacon> filteredMenuItems = [];
+
+  MySelectedcolor mySelectedcolor = MySelectedcolor();
 
   @override
   void initState() {
@@ -40,60 +51,20 @@ class _NewsState extends State<News> {
   void filterMenuItems(String query) {
     setState(() {
       filteredMenuItems = data.menuItems
-          .where((item) =>
-              item['name'].toLowerCase().contains(query.toLowerCase()))
+          .where((menuItem) => menuItem.name
+              .toString()
+              .toLowerCase()
+              .contains(query.toLowerCase()))
           .toList();
     });
   }
-
-  MySelectedcolor mySelectedcolor = MySelectedcolor();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          decoration: BoxDecoration(
-              color: mySelectedcolor.teal,
-              boxShadow: [BoxShadow(color: Colors.greenAccent, blurRadius: 10)],
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.2,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
-              Text(
-                "    ข่าวสารสุขภาพ",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: searchController,
-                  onChanged: filterMenuItems,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                      labelText: 'Search',
-                      labelStyle: TextStyle(color: Colors.white),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      )),
-                ),
-              ),
-            ],
-          ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.05,
         ),
         Expanded(
           child: ListView.builder(
@@ -120,7 +91,9 @@ class _NewsState extends State<News> {
                         onTap: () {
                           showDialog(
                             context: context,
-                            builder: (context) => Scaffold(),
+                            builder: (context) => AlertDialog(
+                              content: Text("${menuItem.data}"),
+                            ),
                           );
                         },
                         child: Column(
@@ -134,14 +107,13 @@ class _NewsState extends State<News> {
                               ),
                               width: MediaQuery.of(context).size.width * 0.6,
                               height: MediaQuery.of(context).size.height * 0.1,
-                              child: Image.network(menuItem['image']),
+                              child: Image.network(menuItem.link),
                             ),
                             ListTile(
                               title: Text(
-                                menuItem['name'],
+                                menuItem.name,
                                 style: TextStyle(fontSize: 20),
                               ),
-                              subtitle: Text(menuItem['data']),
                             ),
                           ],
                         ),
@@ -165,7 +137,9 @@ class _NewsState extends State<News> {
                             onTap: () {
                               showDialog(
                                 context: context,
-                                builder: (context) => Scaffold(),
+                                builder: (context) => AlertDialog(
+                                  content: Text("${menuItem.data2}"),
+                                ),
                               );
                             },
                             child: Column(children: [
@@ -180,14 +154,14 @@ class _NewsState extends State<News> {
                                 width: MediaQuery.of(context).size.width * 0.6,
                                 height:
                                     MediaQuery.of(context).size.height * 0.1,
-                                child: Image.network(menuItem['image2']),
+                                child: Image.network(menuItem.link2),
                               ),
                               ListTile(
                                 title: Text(
-                                  menuItem['name2'],
+                                  menuItem.name2,
                                   style: TextStyle(fontSize: 20),
                                 ),
-                                subtitle: Text(menuItem['data2']),
+                                // subtitle: Text(menuItem['data2']),
                               ),
                             ])))
                   ],
