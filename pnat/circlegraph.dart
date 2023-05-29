@@ -79,6 +79,7 @@ class _CircleGraphState extends State<CircleGraph> {
                   // ),
                   Text(
                     "${datanums(prodata.getSick, prodata.getKcal, prodata.getSodium, prodata.getSugar)}",
+                    style: TextStyle(fontSize: 17),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
@@ -93,6 +94,15 @@ class _CircleGraphState extends State<CircleGraph> {
                 ],
               ),
             ),
+            Spacer(),
+            Text(
+              "เมนูที่แนะนำ",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: mySelectedcolor.teal,
+                  fontWeight: FontWeight.bold),
+            ),
+            Spacer(),
             Container(
               decoration: BoxDecoration(
                   color: Colors.teal, borderRadius: BorderRadius.circular(20)),
@@ -107,6 +117,14 @@ class _CircleGraphState extends State<CircleGraph> {
                 ],
               ),
             ),
+            Spacer(),
+            Text(
+              "เมนูที่แนะนำมีสารอาหารที่เพียงพอและดีต่อสุขภาพ",
+              style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+            ),
+            Spacer(),
+            Spacer(),
+            Spacer()
           ],
         ),
       ),
