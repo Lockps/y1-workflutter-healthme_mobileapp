@@ -29,19 +29,17 @@ class _MainChartState extends State<MainChart> {
   Widget build(BuildContext context) {
     return Consumer<ProviData>(
       builder: (context, prodata, child) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: mySelectedcolor.teal,
-          automaticallyImplyLeading: false,
-          title: Text(
-            'Health me Chart',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          appBar: AppBar(
+            backgroundColor: mySelectedcolor.teal,
+            automaticallyImplyLeading: false,
+            title: Text(
+              'Health me Chart',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            centerTitle: true,
           ),
-          centerTitle: true,
-        ),
-        body: SafeArea(
-            child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
+          body: SafeArea(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   SizedBox(height: 20),
@@ -124,68 +122,106 @@ class _MainChartState extends State<MainChart> {
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   Container(
-                    decoration: BoxDecoration(color: Colors.transparent),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Center(
-                      child: Text(
-                          "คุณต้องการโซเดียมเพิ่มขึ้นอีก ${2 - prodata.sodium} กรัม "),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.transparent),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Center(
-                      child: Text(
-                          "คุณต้องการไขมันเพิ่มขึ้นอีก ${65 - prodata.fat} กรัม "),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.transparent),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Center(
-                      child: Text(
-                          "คุณต้องการน้ำตาลเพิ่มขึ้นอีก ${24 - prodata.sugar} กรัม "),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.transparent),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Center(
-                      child: Text(
-                          "คุณต้องการโปรตีนเพิ่มขึ้นอีก ${55 - prodata.protein} กรัม "),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.transparent),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Center(
-                      child: Text(
-                          "คุณต้องการคาร์โบไฮเดรตเพิ่มขึ้นอีก ${600 - prodata.carbo} กรัม "),
+                    decoration: BoxDecoration(
+                        color: mySelectedcolor.coolmint,
+                        boxShadow: [BoxShadow(spreadRadius: 1, blurRadius: 3)],
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: mySelectedcolor.lgreen,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          height: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(color: Colors.transparent),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: Center(
+                            child: Text(
+                              "คุณต้องการโซเดียมเพิ่มขึ้นอีก ${2 - prodata.sodium} กรัม ",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(color: Colors.transparent),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: Center(
+                            child: Text(
+                              "คุณต้องการไขมันเพิ่มขึ้นอีก ${65 - prodata.fat} กรัม ",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(color: Colors.transparent),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: Center(
+                            child: Text(
+                              "คุณต้องการน้ำตาลเพิ่มขึ้นอีก ${24 - prodata.sugar} กรัม ",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(color: Colors.transparent),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: Center(
+                            child: Text(
+                              "คุณต้องการโปรตีนเพิ่มขึ้นอีก ${55 - prodata.protein} กรัม ",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(color: Colors.transparent),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: Center(
+                            child: Text(
+                              "คุณต้องการคาร์โบไฮเดรตเพิ่มอีก ${600 - prodata.carbo} กรัม ",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        )
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        )),
-      ),
+          )),
     );
   }
 

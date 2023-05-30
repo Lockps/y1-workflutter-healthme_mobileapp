@@ -137,7 +137,13 @@ class _ItemState extends State<Item> {
                                 ),
                               ),
                               Container(
-                                decoration: BoxDecoration(color: Colors.amber),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    color: Colors.transparent,
+                                    image: DecorationImage(
+                                        image: NetworkImage("${menuItem.url}"),
+                                        fit: BoxFit.cover)),
                                 width: MediaQuery.of(context).size.width * 0.5,
                                 height:
                                     MediaQuery.of(context).size.height * 0.25,
